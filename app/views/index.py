@@ -1,14 +1,23 @@
 from django.shortcuts import render
 
-from app.forms.profile import ProfileForm
-from app.models import Profile
+from app.common.budget import calculate_budget_left
+from app.common.profile import get_profile
+from app.models import Profile, Expense
+from app.views.profiles import create_profile
 
 
 def index(request):
     if Profile.objects.exists():
-        pass
-    else:
-        context= {
-            'form': ProfileForm(),
+        profile = get_profile()
+        expenses = Expense.objects.all()
+
+        profile.budget_left = calculate_budget_left(profile, expenses)
+
+        context = {
+            'profile': profile,
+            'expenses': expenses,
         }
-        return render(request, 'home-no-profile.html',context)
+
+        return render(request, 'home-with-profile.html', context)
+    else:
+        return create_profile(request)
