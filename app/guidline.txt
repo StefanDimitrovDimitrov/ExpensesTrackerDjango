@@ -3,14 +3,17 @@ Django app -step by step
 1. create new app with command - startapp 'name'
 2. register the app in settings: INSTALLED_APPS = []
 3. add postgreSQL as DB
+3.5. install psycopg2
 4. create Packages : views and forms in the new app
-5. In the main directory urls add     path('', include('app.urls'))
+7. in the views we create functions with the program logic
 6. in app/urls - create urlpatterns = (
     # Index
-    path('', index, name='index'),
+    path('', index, name='index'), for each function in the views
+5. In the main directory urls add     path('', include('app.urls'))
+
 ) - for each view we have to have a path for ex, edit , delete, create
-7. in the views we create functions with the program logic
-8. The forms contain infoormation about the filds that the user have to fill in:
+
+8. The forms contain information about the fields that the user have to fill in:
 class ExpenseForm(forms.ModelForm):
     class Meta:
         model = Expense
@@ -22,7 +25,7 @@ class ExpenseForm(forms.ModelForm):
         description = models.TextField()
         price = models.FloatField()
         profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-10. v admin we register our site:
+10. v admin we register our models:
 admin.site.register(Expense)
 admin.site.register(Profile)
 11. evey changes in models.py should be migrate with makemigration and migrate commands
