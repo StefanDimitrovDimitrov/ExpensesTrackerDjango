@@ -20,7 +20,7 @@
         
 <h1>Are you sure you want to delete your profile?</h1>
 
-    <form method="POST" action="{% url 'delete profile' %}">
+    <form method="POST" action="{% url 'delete profile' profile.id %}">
         {% crsf_token %}
     <button class="delete">Confirm</button>
     </form>

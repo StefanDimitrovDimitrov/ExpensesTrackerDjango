@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from app.common.budget import calculate_budget_left
 from app.common.profile import get_profile
 from app.forms.profile import ProfileForm
-from app.models import Expense
+from app.models import Expense, Profile
 
 
 def profile_index(request):
@@ -39,8 +39,8 @@ def create_profile(request):
         return render(request, 'home-no-profile.html', context)
 
 
-def edit_profile(request):
-    profile = get_profile()
+def edit_profile(request, pk):
+    profile = Profile.objects.get(pk=pk)
 
     if request.method == 'GET':
         context = {
